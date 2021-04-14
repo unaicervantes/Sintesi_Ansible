@@ -1,1 +1,1 @@
-# Sintesi_Ansible
+# Treball de síntesi d'Ansible
