@@ -1,0 +1,60 @@
+---
+- hosts: dmza.unai.org
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Actualitzar paquets
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Instalar apache
+      apt: name=apache2 update_cache=yes state=latest
+    
+    - name: Instalar ufw
+      apt: name=ufw update_cache=yes state=latest
+
+    - name: Crear document root
+      file:
+        path: "/var/www/{{ http_host }}"
+        state: directory
+        owner: "{{ app_user }}"
+        mode: '0755'
+
+    - name: Copiar pàgina web
+      template:
+        src: "files/index.html.j2"
+        dest: "/var/www/{{ http_host }}/index.html"
+
+    - name: Copiar configuració virtual host
+      template:
+        src: "files/apache.conf.j2"
+        dest: "/etc/apache2/sites-available/{{ http_conf }}"
+
+    - name: Activar pàgina web
+      shell: /usr/sbin/a2ensite {{ http_conf }}
+      notify: Reload Apache
+
+    - name: Desactivar pàgina per defecte
+      shell: /usr/sbin/a2dissite 000-default.conf
+      when: disable_default
+      notify: Reload Apache
+
+    - name: Obrir port "{{ http_port }}"
+      ufw:
+        rule: allow
+        port: "{{ http_port }}"
+        proto: tcp
+
+  handlers:
+    - name: Recarregar apache
+      service:
+        name: apache2
+        state: reloaded
+
+    - name: Reiniciar apache
+      service:
+        name: apache2
+        state: restarted
+
