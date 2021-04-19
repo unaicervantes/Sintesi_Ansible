@@ -11,6 +11,9 @@ dmzd.unai.org ansible_user=user1
 dmze.unai.org ansible_user=user1
 dmzf.unai.org ansible_user=user1
 
+[fw]
+fw.unai.org
+
 [ordenadores]
 inta.unai.org ansible_user=user1
 intb.unai.org ansible_user=user1
