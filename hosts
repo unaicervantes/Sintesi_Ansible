@@ -3,7 +3,7 @@
 [ansible]
 base.unai.org ansible_user=user1
 
-[servidores]
+[servidors]
 dmza.unai.org ansible_user=user1
 dmzb.unai.org ansible_user=user1
 dmzc.unai.org ansible_user=user1
@@ -14,7 +14,7 @@ dmzf.unai.org ansible_user=user1
 [fw]
 fw.unai.org
 
-[ordenadores]
+[ordinadors]
 inta.unai.org ansible_user=user1
 intb.unai.org ansible_user=user1
 intc.unai.org ansible_user=user1
