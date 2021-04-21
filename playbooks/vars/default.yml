@@ -2,5 +2,6 @@ app_user: "user1"
 http_host: "dmza.unai.org"
 http_conf: "dmza.unai.org.conf"
 http_port: "80"
+https_port: "443"
 disable_default: true
 ansible_sudo_pass: You can change me.

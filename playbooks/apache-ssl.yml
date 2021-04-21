@@ -1,0 +1,77 @@
+---
+- hosts: dmza.unai.org
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Actualitzar paquets
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Instal·lar apache
+      apt: name=apache2 update_cache=yes state=latest
+    
+    - name: Instal·lar ufw
+      apt: name=ufw update_cache=yes state=latest
+
+    - name: Crear document root
+      file:
+        path: "/var/www/{{ http_host }}"
+        state: directory
+        owner: "{{ app_user }}"
+        mode: '0755'
+
+    - name: Copiar pàgina web
+      template:
+        src: "files/index.html.j2"
+        dest: "/var/www/{{ http_host }}/index.html"
+
+    - name: Copiar configuració virtual host
+      template:
+        src: "files/apache-ssl.conf.j2"
+        dest: "/etc/apache2/sites-available/{{ http_conf }}"
+
+    - name: Copiar certificat
+      template:
+        src: "files/cert.crt"
+        dest: "/etc/ssl/certs/cert.crt"
+
+    - name: Copiar key
+      template:
+        src: "files/cert.key"
+        dest: "/etc/ssl/private/cert.key"
+
+    - name: Activar pàgina web
+      shell: /usr/sbin/a2ensite {{ http_conf }}
+      notify: Reload Apache
+
+    - name: Desactivar pàgina per defecte
+      shell: /usr/sbin/a2dissite 000-default.conf
+      when: disable_default
+      notify: Reload Apache
+
+    - name: Activar ssl
+      shell: /usr/sbin/a2enmod ssl
+      notify: Reload Apache
+
+    - name: Activar ssl
+      shell: /usr/sbin/a2enmod headers
+      notify: Reload Apache
+
+    - name: Obrir port "{{ https_port }}"
+      ufw:
+       rule: allow
+       port: "{{ https_port }}"
+       proto: tcp
+
+  handlers:
+    - name: Reload Apache
+      service:
+        name: apache2
+        state: reloaded
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
