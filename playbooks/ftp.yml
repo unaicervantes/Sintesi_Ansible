@@ -1,0 +1,23 @@
+---
+- hosts: dmza.unai.org
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Actualitzar paquets
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Instal·lar ftp
+      apt: name=proftpd update_cache=yes state=latest
+   
+    - name: Copiar fitxer de configuració
+      template:
+        src: "files/proftpd.conf"
+        dest: "/etc/proftpd/"
+
+    - name: Reinciar proftpd
+      service:
+        name: proftpd
+        state: restarted
