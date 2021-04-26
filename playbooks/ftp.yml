@@ -16,8 +16,25 @@
       template:
         src: "files/proftpd.conf"
         dest: "/etc/proftpd/"
+      
+    - name: Crear fitxer passwd
+      file: 
+        path: "/etc/proftpd/ftpd.passwd"
+        state: touch
+    
+    - name: Crear directori usuari
+      file:
+        path: "/srv/{{ usuari }}"
+        state: directory
+        owner: root
+        mode: '0777'
+      
+    - name: Creació usuari
+      shell: echo {{ passwd_usuari  }} | ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd  --name={{ usuari }} --uid={{ uid }} --gid={{ gid }} --home=/srv/{{ usuari }} --shell=/bin/false -stdin
+      notify: Restart proftpd       
 
-    - name: Reinciar proftpd
+  handlers:
+    - name: Restart proftpd
       service:
         name: proftpd
         state: restarted

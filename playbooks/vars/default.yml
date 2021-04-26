@@ -5,3 +5,7 @@ http_port: "80"
 https_port: "443"
 disable_default: true
 ansible_sudo_pass: You can change me.
+usuari: "web1"
+passwd_usuari: "You can change me."
+uid: "2000"
+gid: "2000"
