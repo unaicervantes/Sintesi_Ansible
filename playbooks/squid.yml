@@ -1,0 +1,30 @@
+---
+- hosts: servidors
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Actualitzar paquets 
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Instal·lar squid
+      apt: name=squid update_cache=yes state=latest
+
+    - name: Copiar fitxer configuració squid
+      template:
+        src: "files/squid.conf"
+        dest: "/etc/squid/squid.conf"
+
+    - name: Copiar fitxer webs
+      template:
+        src: "files/denegado"
+        dest: "/etc/squid/denegado"
+      notify: Restart squid
+
+  handlers:
+    - name: Restart squid
+      service:
+        name: squid
+        state: restarted
