@@ -33,6 +33,22 @@
       shell: echo {{ passwd_usuari  }} | ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd  --name={{ usuari }} --uid={{ uid }} --gid={{ gid }} --home=/srv/{{ usuari }} --shell=/bin/false -stdin
       notify: Restart proftpd       
 
+    - name: Copiar certificat
+      template:
+        src: "files/cert.crt"
+        dest: "/etc/ssl/certs/cert.crt"
+
+    - name: Copiar key
+      template:
+        src: "files/cert.key"
+        dest: "/etc/ssl/private/cert.key"
+
+    - name: Copiar fitxer tls
+      template:
+        src: "files/tls.conf"
+        dest: "/etc/proftpd/tls.conf"
+      notify: Restart proftpd
+
   handlers:
     - name: Restart proftpd
       service:
