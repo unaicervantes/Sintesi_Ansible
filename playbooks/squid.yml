@@ -23,6 +23,18 @@
         dest: "/etc/squid/denegado"
       notify: Restart squid
 
+    - name: Crear fitxer passwd
+      file:
+        path: "/etc/squid/passwd"
+        state: touch 
+
+    - name: Crear usuari1
+      shell: htpasswd -mb /etc/squid/passwd {{ usuari1  }} {{ passwd_usuari1  }}
+
+    - name: Crear usuari2
+      shell: htpasswd -mb /etc/squid/passwd {{ usuari2  }} {{ passwd_usuari2  }} 
+      notify: Restart squid
+
   handlers:
     - name: Restart squid
       service:
