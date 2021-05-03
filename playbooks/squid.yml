@@ -1,5 +1,5 @@
 ---
-- hosts: servidors
+- hosts: fw
   become: true
   vars_files:
     - vars/default.yml

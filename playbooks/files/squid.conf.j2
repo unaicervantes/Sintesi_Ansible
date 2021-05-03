@@ -3,8 +3,8 @@
 #
 
 auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/passwd
-acl permes proxy_auth admin
-acl prohibit proxy_auth usuari
+acl permes proxy_auth {{ usuari1  }}
+acl prohibit proxy_auth {{ usuari2  }}
 acl denegado url_regex "/etc/squid/denegado"
 http_access allow permes
 http_access allow prohibit !denegado
