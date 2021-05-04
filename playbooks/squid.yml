@@ -14,7 +14,7 @@
 
     - name: Copiar fitxer configuració squid
       template:
-        src: "files/squid.conf"
+        src: "files/squid.conf.j2"
         dest: "/etc/squid/squid.conf"
 
     - name: Copiar fitxer webs
@@ -29,10 +29,10 @@
         state: touch 
 
     - name: Crear usuari1
-      shell: htpasswd -mb /etc/squid/passwd {{ usuari1  }} {{ passwd_usuari1  }}
+      shell: htpasswd -mb /etc/squid/passwd {{ usuari1 }} {{ passwd_usuari1 }}
 
     - name: Crear usuari2
-      shell: htpasswd -mb /etc/squid/passwd {{ usuari2  }} {{ passwd_usuari2  }} 
+      shell: htpasswd -mb /etc/squid/passwd {{ usuari2 }} {{ passwd_usuari2 }} 
       notify: Restart squid
 
   handlers:
