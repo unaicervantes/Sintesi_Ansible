@@ -1,0 +1,23 @@
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL	604800
+@	IN	SOA	dmza.unai.net. admin.unai.net. (
+			      3		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+@	IN	NS	localhost.
+1.0.0	IN	PTR	localhost.
+
+; name servers - NS records
+      IN      NS      dmzc.unai.net.
+      IN      NS      dmzd.unai.net.
+
+; PTR Records
+10.2.5   IN      PTR     inta.unai.net.    ; 10.5.1.10
+11.2.5   IN      PTR     intb.unai.net.    ; 10.5.1.11
+12.2.5   IN      PTR     intc.unai.net.    ; 10.5.1.12
+13.2.5   IN      PTR     intd.unai.net.    ; 10.5.1.13

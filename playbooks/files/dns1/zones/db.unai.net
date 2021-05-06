@@ -1,0 +1,32 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL	604800
+@	IN	SOA	dmzc.unai.net. admin.unai.net. (
+			      3		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+@	IN	NS	localhost.
+@	IN	A	127.0.0.1
+@	IN	AAAA	::1
+
+; name servers - NS records
+   IN       NS      dmzc.unai.net.
+   IN	    NS 	    dmzd.unai.net.
+
+; name servers - A records
+dmzc.unai.net.        IN      A      10.5.1.12
+dmzd.unai.net.        IN      A      10.5.1.13
+
+; 10.5.1.0/24 - A records
+dmza.unai.net.        IN      A      10.5.1.10
+dmzb.unai.net.        IN      A      10.5.1.11
+
+; 10.5.2.0/24 - A records
+inta.unai.net.        IN      A      10.5.2.10
+intb.unai.net.        IN      A      10.5.2.11
+intc.unai.net.        IN      A      10.5.2.12
+intd.unai.net.        IN      A      10.5.2.13

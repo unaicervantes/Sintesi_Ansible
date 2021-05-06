@@ -1,0 +1,17 @@
+zone "unai.net" {
+    type master;
+    file "/etc/bind/zones/db.unai.net"; 
+    allow-transfer { 10.5.10.13; };     
+};
+
+zone "1.5.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.1.5.10";  
+    allow-transfer { 10.5.1.13; };  
+};
+
+zone "2.5.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.2.5.10"; 
+    allow-transfer { 10.5.1.13; };  
+};
