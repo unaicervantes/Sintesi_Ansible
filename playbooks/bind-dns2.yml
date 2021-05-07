@@ -1,0 +1,28 @@
+---
+- hosts: servidors
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Actualitzar paquets
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Instal·lar bind
+      apt: name=bind9 update_cache=yes state=latest
+ 
+    - name: Copiar named.conf.local
+      template:
+        src: "files/dns2/named.conf.local"
+        dest: "/etc/bind/named.conf.local"
+
+    - name: Copiar named.conf.options
+      template:
+        src: "files/dns2/named.conf.options"
+        dest: "/etc/bind/named.conf.options"
+
+    - name: Restart Bind9
+      service:
+        name: bind9
+        state: restarted

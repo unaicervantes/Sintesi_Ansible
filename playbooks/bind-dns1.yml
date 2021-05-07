@@ -1,0 +1,50 @@
+---
+- hosts: servidors
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Actualitzar paquets
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Instal·lar bind
+      apt: name=bind9 update_cache=yes state=latest
+ 
+    - name: Copiar named.conf.local
+      template:
+        src: "files/dns1/named.conf.local"
+        dest: "/etc/bind/named.conf.local"
+
+    - name: Copiar named.conf.options
+      template:
+        src: "files/dns1/named.conf.options"
+        dest: "/etc/bind/named.conf.options"
+
+    - name: Crear zones
+      file:
+        path: "/etc/bind/zones"
+        state: directory
+        owner: root
+        mode: '0755'
+
+    - name: Copiar db.unai.net
+      template:
+         src: "files/dns1/zones/db.unai.net"
+         dest: "/etc/bind/zones/db.unai.net"
+
+    - name: Copiar db.1.5.10
+      template:
+         src: "files/dns1/zones/db.1.5.10"
+         dest: "/etc/bind/zones/db.1.5.10"   
+
+    - name: Copiar db.2.5.10
+      template:
+         src: "files/dns1/zones/db.2.5.10"
+         dest: "/etc/bind/zones/db.2.5.10"
+
+    - name: Restart Bind9
+      service:
+        name: bind9
+        state: restarted

@@ -13,3 +13,4 @@ usuari1: "admin"
 passwd_usuari1: "admin"
 usuari2: "usuari"
 passwd_usuari2: "usuari"
+interficie: eth0

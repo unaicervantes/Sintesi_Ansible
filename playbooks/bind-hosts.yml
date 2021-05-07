@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+    - name: Actualitzar paquets
+      apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
+      loop: [ 'aptitude' ]
+
+    - name: Instal·lar resolvconf
+      apt: name=resolvconf update_cache=yes state=latest
+
+    - name: Copiar fitxer interfaces
+      template:
+        src: "files/interfaces"
+        dest: "/etc/network/interfaces"
