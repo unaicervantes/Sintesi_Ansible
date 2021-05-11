@@ -17,7 +17,9 @@ $TTL	604800
       IN      NS      dmzd.unai.net.
 
 ; PTR Records
-10.2.5   IN      PTR     inta.unai.net.    ; 10.5.1.10
-11.2.5   IN      PTR     intb.unai.net.    ; 10.5.1.11
-12.2.5   IN      PTR     intc.unai.net.    ; 10.5.1.12
-13.2.5   IN      PTR     intd.unai.net.    ; 10.5.1.13
+10   IN      PTR     inta.unai.net.    ; 10.5.1.10
+11   IN      PTR     intb.unai.net.    ; 10.5.1.11
+12   IN      PTR     intc.unai.net.    ; 10.5.1.12
+13   IN      PTR     intd.unai.net.    ; 10.5.1.13
+14   IN      PTR     inte.unai.net.    ; 10.5.1.14
+15   IN      PTR     intf.unai.net.    ; 10.5.1.15

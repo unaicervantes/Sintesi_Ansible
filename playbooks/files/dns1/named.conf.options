@@ -3,10 +3,16 @@ acl "trusted" {
 	10.5.1.11; #dmzb
 	10.5.1.12; #dmzc dns1
 	10.5.1.13; #dmzd dns2
+	10.5.1.14; #dmze
+	10.5.1.15; #dmzf	
 	10.5.2.10; #inta
 	10.5.2.11; #intb
 	10.5.2.12; #intc
 	10.5.2.13; #intd
+	10.5.2.14; #inte
+	10.5.2.15; #intf
+	10.5.1.1; #base
+	10.5.2.1; #base
 };
 
 options {

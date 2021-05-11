@@ -15,7 +15,7 @@ $TTL	604800
 
 ; name servers - NS records
    IN       NS      dmzc.unai.net.
-   IN	    NS 	    dmzd.unai.net.
+   IN	    NS      dmzd.unai.net.
 
 ; name servers - A records
 dmzc.unai.net.        IN      A      10.5.1.12
@@ -24,9 +24,13 @@ dmzd.unai.net.        IN      A      10.5.1.13
 ; 10.5.1.0/24 - A records
 dmza.unai.net.        IN      A      10.5.1.10
 dmzb.unai.net.        IN      A      10.5.1.11
+dmze.unai.net.        IN      A      10.5.1.14
+dmzf.unai.net.        IN      A      10.5.1.15
 
 ; 10.5.2.0/24 - A records
 inta.unai.net.        IN      A      10.5.2.10
 intb.unai.net.        IN      A      10.5.2.11
 intc.unai.net.        IN      A      10.5.2.12
 intd.unai.net.        IN      A      10.5.2.13
+inte.unai.net.        IN      A      10.5.2.14
+intf.unai.net.        IN      A      10.5.2.15
